@@ -32,7 +32,7 @@
 let currentTime = moment().format("dddd, MMMM Do YYYY");
 let currentHour = moment().format("HH");
 let textAreaId = 0;
-let tasks = {};
+let tasks = [];
 
 console.log(currentHour);
 
@@ -46,7 +46,7 @@ $(".time-block").each(function(index, element){
     }else if(currentHour < $(element).attr("id")){
         $(element).addClass("future")
     }
-})
+});
 
 $(".time-block").on("click", "p", function() {
 let text = $(this)
@@ -60,8 +60,19 @@ textInput.trigger("focus");
 textAreaId++;
 });
 
+let renderTasks = function(tasks) {
+    for (let i = 0; i < tasks.length; i++) {
+        let tasksItem = $(".time-block");
+        tasksItem.text(tasks[i]);
+        $(".time-block").append(tasksItem);
+    }
+};
+
 $(".saveBtn").click(function() {
 console.log("You clicked the save button");
+    let timeBlock = $(".time-block").val().trim();
+    tasks.push(timeBlock);
+    console.log(tasks);
 });
 
 // $(document).ready(function() {
