@@ -1,44 +1,9 @@
-// How to edit text for each day
-// $(".list-group").on("click", "p", function() {
-//     let text = $(this)
-//       .text()
-//       .trim();
-//     let textInput = $("<textarea>")
-//       .addClass("form-control")
-//       .val(text);
-//     $(this).replaceWith(textInput);
-//     textInput.trigger("focus");
-//   });
-
-// How to apply color based on date
-// let auditTask = function(taskEl) {
-//     // Get date from task element
-//     let date = $(taskEl)
-//       .find("span")
-//       .text()
-//       .trim();
-//     // Convert to moment object at 5:00pm
-//     let time = moment(date, "L").set("hour", 17);
-//     // Remove old classes from element
-//     $(taskEl).removeClass("list-group-item-warning list-group-item-danger");
-//     // Apply new classes if task is near or overdue
-//     if (moment().isAfter(time)) {
-//       $(taskEl).addClass("list-group-item-danger");
-//     } else if (Math.abs(moment().diff(time, "days")) <= 2) {
-//       $(taskEl).addClass("list-group-item-warning");
-//     }
-//   };
-
 let currentTime = moment().format("dddd, MMMM Do YYYY");
 let currentHour = moment().format("HH");
-let textAreaId = 0;
-let tasks = [];
-
-console.log(currentHour);
 
 document.getElementById("currentDay").innerHTML = currentTime.toString();
 
-$(".time-block").each(function(index, element){
+$("input").each(function(index, element){
     if(currentHour > $(element).attr("id")){
         $(element).addClass("past");
     }else if(currentHour === $(element).attr("id")){
@@ -46,36 +11,90 @@ $(".time-block").each(function(index, element){
     }else if(currentHour < $(element).attr("id")){
         $(element).addClass("future")
     }
-});
+})
 
-$(".time-block").on("click", "p", function() {
-let text = $(this)
-    .text()
-    .trim();
-let textInput = $("<textarea>")
-    .val(text)
-    .attr("id", textAreaId);
-$(this).replaceWith(textInput);
-textInput.trigger("focus");
-textAreaId++;
-});
+$("#saveButton09").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#09").val());
+    let key = "task-09";
+    localStorage.setItem(key, inputVal);
+})
 
-let renderTasks = function(tasks) {
-    for (let i = 0; i < tasks.length; i++) {
-        let tasksItem = $(".time-block");
-        tasksItem.text(tasks[i]);
-        $(".time-block").append(tasksItem);
+$("#saveButton10").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#10").val());
+    let key = "task-10";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton11").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#11").val());
+    let key = "task-11";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton12").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#12").val());
+    let key = "task-12";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton1").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#13").val());
+    let key = "task-13";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton2").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#14").val());
+    let key = "task-14";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton3").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#15").val());
+    let key = "task-15";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton4").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#16").val());
+    let key = "task-16";
+    localStorage.setItem(key, inputVal);
+})
+
+$("#saveButton5").click(function(event) {
+    event.preventDefault();
+    let inputVal = ($("#17").val());
+    let key = "task-17";
+    localStorage.setItem(key, inputVal);
+})
+
+let loadTasks = () => {
+    for(let i = 0; i < 9; i++) {
+        let temp;
+        let num = 9 + i;
+        let str = "task-";
+        if(num === 9) {
+            str = "task-09";
+            temp = "09";
+        } else {
+            str = "task-" + num;
+            temp = num.toString();
+        }
+        let data = localStorage.getItem(str);
+        if(data) {
+           document.getElementById(temp).setAttribute("value", data);
+        }
     }
-};
+}
 
-$(".saveBtn").click(function() {
-console.log("You clicked the save button");
-    let timeBlock = $(".time-block").val().trim();
-    tasks.push(timeBlock);
-    console.log(tasks);
+$(document).ready(function() {
+    loadTasks();
 });
-
-// $(document).ready(function() {
-//     populate();
-// });
-  
